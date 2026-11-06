@@ -1013,13 +1013,16 @@ document.addEventListener('DOMContentLoaded', () => {
         ctrlDevices.forEach(dev => {
           const item = document.createElement('div');
           item.className = 'device-item';
+          // Device names come from Bluetooth advertisements, so they are set as text, not HTML.
           item.innerHTML = `
             <div class="device-item-left">
-              <span class="device-item-name">🎮 ${dev.Name}</span>
-              <span class="device-item-sub">MAC: ${dev.FormattedMac} ${dev.IsPaired ? '[ペアリング済]' : ''}</span>
+              <span class="device-item-name"></span>
+              <span class="device-item-sub"></span>
             </div>
             <span class="device-item-badge">OpenBikeControl</span>
           `;
+          item.querySelector('.device-item-name').textContent = `🎮 ${dev.Name}`;
+          item.querySelector('.device-item-sub').textContent = `MAC: ${dev.FormattedMac} ${dev.IsPaired ? '[ペアリング済]' : ''}`;
           item.addEventListener('click', () => {
             ctrlDeviceList.querySelectorAll('.device-item').forEach(el => el.classList.remove('selected'));
             item.classList.add('selected');
